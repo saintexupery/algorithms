@@ -13,28 +13,52 @@
 1의 위치가 더 작으므로 1을 반환해주면 됩니다.
 '''
 
+from operator import itemgetter
+
 def chooseCity(n,city):
+    city = sorted(city, key=lambda x: x[0])
+
     min_cost = 0
     locate = city[0][0]
 
+    population_left = 0
+    population_right = 0
+
     for i in range(0, n):
-        total_cost = 0
+        population_right += city[i][1]
+        min_cost += abs(city[0][0] - city[i][0]) * city[i][1]
 
-        for j in range(0, n):
-            if i != j:
-                distance = abs(city[i][0] - city[j][0])
-                population = city[j][1]
-
-                total_cost += distance * population
+    population_right -= city[0][1]
+    total_cost = min_cost
+    for i in range(1, n):
+        population_left += city[i-1][1]
+        total_cost = total_cost + population_left - population_right
+        population_right -= city[i][1]
 
         if min_cost > total_cost:
             min_cost = total_cost
             locate = city[i][0]
 
-        elif min_cost == total_cost:
-            locate = min(locate[i][0], locate[j][0])
-
     return locate
+
+    # for i in range(0, n):
+    #     total_cost = 0
+    #
+    #     for j in range(0, n):
+    #         if i != j:
+    #             distance = abs(city[i][0] - city[j][0])
+    #             population = city[j][1]
+    #
+    #             total_cost += distance * population
+    #
+    #     if min_cost > total_cost:
+    #         min_cost = total_cost
+    #         locate = city[i][0]
+    #
+    #     elif min_cost == total_cost:
+    #         locate = min(locate[i][0], locate[j][0])
+
+    # return locate
 
 #아래 코드는 출력을 위한 테스트 코드입니다.
 
