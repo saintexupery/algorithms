@@ -63,3 +63,4 @@ def chooseCity(n,city):
 #아래 코드는 출력을 위한 테스트 코드입니다.
 
 print(chooseCity(3,[[1,5],[2,2],[3,3]]))
+print(chooseCity(3,[[0,1000],[1,1],[10000000,1]]))
