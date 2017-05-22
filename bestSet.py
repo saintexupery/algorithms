@@ -9,7 +9,18 @@
 '''
 
 def bestSet(n, s):
-    answer = []
+    if n > s:
+        return [-1]
+
+    quotient = s // n
+    remainder = s % n
+
+    answer = [quotient for i in range(0, n)]
+
+    for i in range(0, remainder):
+        answer[i] += 1
+
+    answer = sorted(answer, key=lambda x:x)
 
     return answer
 
