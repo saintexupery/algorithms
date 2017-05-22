@@ -14,10 +14,24 @@ CPU의 코어별 처리 시간이 [1,2,3] 이라면 처음 3개의 작업은 각
 1의 시간 뒤 1번 코어에 4번째 작업, 다시 1의 시간 뒤 1,2번 코어에 5,6번 째 작업이 들어가므로 2를 반환해 주면 됩니다.
 '''
 
-def getCoreNumber(n, cores):
-    answer = 0
+from collections import deque
 
-    return answer
+
+def getCoreNumber(n, cores):
+    queue = deque()
+    core_size = len(cores)
+
+    for i in cores:
+        queue.append(i)
+
+    while n > 1:
+        element_of_queue = queue.popleft()
+        n -= 1
+        queue.append(element_of_queue)
+        print(queue)
+
+        if n == 0:
+            return queue.pop()
 
 
 # 아래는 테스트로 출력해 보기 위한 코드입니다.
